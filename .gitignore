@@ -103,6 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+.idea
+
 upload.bat
 manage.py
 db.sqlite3
