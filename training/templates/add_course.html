@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+</head>
+<body>
+<h1>Add New Course</h1>
+<form>
+    Course Title <br/>
+    <input type="text" name="title" value="{{title}}"/>
+    <p></p>
+    Course Duration(hours) <br/>
+    <input type="number" name="duration" value="{{duration}}"/>
+    <p></p>
+    Course Fee (INR) <br/>
+    <input type="number" name="fee"  value="{{fee}}" >
+    <p></p>
+    <input type="submit" value="Add Course"/>
+    <p/>
+    {{message}}
+</form>
+</body>
+</html>

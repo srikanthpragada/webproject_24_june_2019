@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Courses</title>
+</head>
+<body>
+<h1>List Of Courses</h1>
+
+<a href="/training/addcourse/">Add new course</a>
+<p></p>
+<table style="width:100%" border="1">
+    <tr style="background-color:silver;">
+        <th>Id</th>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Fee</th>
+    </tr>
+    {% for c in courses %}
+       <tr>
+        <td>{{c.0}}</td>
+        <td>{{c.1}}</td>
+        <td style="text-align:right">{{c.2}}</td>
+        <td style="text-align:right">{{c.3}}</td>
+      </tr>
+    {% endfor %}
+
+</table>
+
+
+</body>
+</html>
