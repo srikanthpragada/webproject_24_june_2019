@@ -1,0 +1,20 @@
+
+
+{% extends 'student_master.html'%}
+{% block body%}
+<h2>Summary</h2>
+
+<table border="1" cellpadding="10pt">
+    <tr>
+        <td>No. of students : </td>
+        <td>{{summary.count}}</td>
+    </tr>
+
+    <tr>
+        <td>Total Fee Collected :</td>
+        <td>{{summary.total}}</td>
+    </tr>
+</table>
+
+
+{% endblock %}

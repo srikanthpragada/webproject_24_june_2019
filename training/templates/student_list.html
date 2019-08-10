@@ -1,0 +1,32 @@
+{% extends 'student_master.html'%}
+{% block body%}
+
+<h2>Students</h2>
+
+<table style="width:100%" border="1" cellpadding="5pt">
+    <tr style="background-color:silver;">
+        <th>Id</th>
+        <th>Fullname</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Fee Paid</th>
+        <th></th>
+    </tr>
+    {% for s in students %}
+       <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.fullname}}</td>
+        <td>{{s.email}}</td>
+        <td>{{s.course}}</td>
+        <td style="text-align:right">{{s.feepaid}}</td>
+        <td style="text-align:center">
+            <a href="/training/studentedit/?id={{s.id}}">Edit</a>
+            <a href="/training/studentdelete/?id={{s.id}}">Delete</a>
+        </td>
+
+      </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

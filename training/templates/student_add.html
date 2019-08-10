@@ -1,0 +1,16 @@
+{% extends 'student_master.html'%}
+
+{% block body %}
+<h1>Add Student</h1>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <p></p>
+    <input type="submit" value="Add" />
+    <p/>
+    <h4>{{message}}</h4>
+</form>
+
+{% endblock %}
