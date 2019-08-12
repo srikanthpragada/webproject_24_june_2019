@@ -4,7 +4,6 @@ from django.urls import path
 from . import views, dbviews,student_views
 
 
-
 urlpatterns = [
     path('home/', views.home),
     path('courses/', dbviews.list_courses),
@@ -13,4 +12,7 @@ urlpatterns = [
     path('studenthome/', student_views.home),
     path('studentadd/', student_views.add),
     path('studentlist/', student_views.list),
+    path('studentdelete/', student_views.delete_student),
+    path('studentedit/', student_views.edit_student),
+    path('studentsearch/', student_views.search_students),
 ]

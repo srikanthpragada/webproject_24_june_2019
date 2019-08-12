@@ -1,8 +1,13 @@
 {% extends 'student_master.html'%}
 {% block body%}
+<h2>Search Students</h2>
+<form>
+    Name <input type="text" name="sname" value="{{sname}}"/>
+    <input type="submit" value="Search"/>
+</form>
 
-<h2>Students</h2>
-
+{% if students %}
+<p></p>
 <table style="width:100%" border="1" cellpadding="5pt">
     <tr style="background-color:silver;">
         <th>Id</th>
@@ -13,7 +18,7 @@
         <th></th>
     </tr>
     {% for s in students %}
-       <tr>
+    <tr>
         <td>{{s.id}}</td>
         <td>{{s.fullname}}</td>
         <td>{{s.email}}</td>
@@ -25,9 +30,13 @@
                href="/training/studentdelete/?id={{s.id}}">Delete</a>
         </td>
 
-      </tr>
+    </tr>
     {% endfor %}
-
 </table>
+{% else %}
+    {%if length == 0 %}
+      <h3>Sorry! No student found!</h3>
+    {% endif %}
+{% endif %}
 
 {% endblock %}

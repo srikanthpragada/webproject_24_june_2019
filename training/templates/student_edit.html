@@ -1,0 +1,20 @@
+{% extends 'student_master.html'%}
+
+{% block body %}
+<h1>Edit Student</h1>
+{% if message %}
+<h3>{{message}}</h3>
+{% else %}
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <p></p>
+    <input type="submit" value="Update"/>
+    <p/>
+    {{error}}
+</form>
+{% endif %}
+
+{% endblock %}
