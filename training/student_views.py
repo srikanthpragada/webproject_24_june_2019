@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Sum, Count
 from .models import Student
 from .forms import StudentForm
+from datetime import datetime,timedelta
 
 
 def home(request):
@@ -69,10 +70,18 @@ def edit_student(request):
 
 def search_students(request):
     if 'sname' not in request.GET:
-        return render(request, 'student_search.html')
+        if 'searchname' in request.COOKIES:
+            sn = request.COOKIES['searchname']
+        else:
+            sn = ''
+
+        return render(request, 'student_search.html',{'sname' : sn})
     else:
         sname = request.GET['sname']
-        students =  Student.objects.filter(fullname__contains=sname)
-        return render(request, 'student_search.html',
-           {'sname' : sname, 'students' : students, 'length' : len(students)})
+        students = Student.objects.filter(fullname__contains=sname)
+        response = render(request, 'student_search.html',
+                     {'sname': sname, 'students': students, 'length': len(students)})
+        response.set_cookie("searchname",sname,
+                            expires= datetime.now() + timedelta(days=5))
+        return response
 
