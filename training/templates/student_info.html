@@ -1,0 +1,60 @@
+{% extends 'student_master.html'%}
+{% block body%}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+        function getStudent()
+        {
+            $("#info").css("visibility","hidden")
+
+            $.get("/training/get_student/?id=" + $("#sid").val(),
+               null,showStudent);
+        }
+
+        function showStudent(response)
+        {
+            console.log(response);
+            if(response.error)
+               alert("Sorry! Student Not Found");
+            else
+            {
+               $("#fullname").text(response.fullname)
+               $("#email").text(response.email)
+               $("#course").text(response.course)
+               $("#feepaid").text(response.feepaid)
+               $("#info").css("visibility","visible")
+            }
+        }
+
+
+</script>
+
+<h2>Student Information</h2>
+Student Id : <input type="number" id="sid"/>
+<button onclick="getStudent()">Get</button>
+<p></p>
+<table id="info" border="1" cellpadding="10pt" style="visibility:hidden">
+    <tr>
+        <td>Fullname</td>
+        <td><span id="fullname"></span></td>
+    </tr>
+
+    <tr>
+        <td>Email</td>
+        <td><span id="email"></span></td>
+    </tr>
+
+    <tr>
+        <td>Course</td>
+        <td><span id="course"></span></td>
+    </tr>
+
+    <tr>
+        <td>Fee Paid</td>
+        <td><span id="feepaid"></span></td>
+    </tr>
+
+</table>
+
+
+{% endblock %}

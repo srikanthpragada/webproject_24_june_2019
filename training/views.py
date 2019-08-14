@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime
 from .forms import AddForm
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -19,9 +20,17 @@ def add_numbers(request):
             sn = f.cleaned_data['second']
             total = fn + sn
             return render(request, 'add_numbers.html',
-                          {'form': f, 'total' : total})
-    else: # GET
+                          {'form': f, 'total': total})
+    else:  # GET
         f = AddForm()
 
     return render(request, 'add_numbers.html',
                   {'form': f})
+
+
+def ajax_demo(request):
+    return render(request, 'ajax_demo.html')
+
+
+def ajax_now(request):
+    return HttpResponse(str(datetime.now()))

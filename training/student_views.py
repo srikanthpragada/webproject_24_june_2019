@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.db.models import Sum, Count
 from .models import Student
 from .forms import StudentForm
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
+from django.http import JsonResponse
 
 
 def home(request):
@@ -27,6 +28,10 @@ def add(request):
 def list(request):
     return render(request, 'student_list.html',
                   {'students': Student.objects.all()})
+
+
+def info(request):
+    return render(request, 'student_info.html')
 
 
 def delete_student(request):
@@ -75,13 +80,25 @@ def search_students(request):
         else:
             sn = ''
 
-        return render(request, 'student_search.html',{'sname' : sn})
+        return render(request, 'student_search.html', {'sname': sn})
     else:
         sname = request.GET['sname']
         students = Student.objects.filter(fullname__contains=sname)
         response = render(request, 'student_search.html',
-                     {'sname': sname, 'students': students, 'length': len(students)})
-        response.set_cookie("searchname",sname,
-                            expires= datetime.now() + timedelta(days=5))
+                          {'sname': sname, 'students': students, 'length': len(students)})
+        response.set_cookie("searchname", sname,
+                            expires=datetime.now() + timedelta(days=5))
         return response
 
+
+def get_student(request):
+    id = request.GET['id']
+    try:
+        stud = Student.objects.get(id=id)
+        return JsonResponse({"fullname" : stud.fullname,
+                             "email" : stud.email,
+                             "course" : stud.course,
+                             "feepaid" : stud.feepaid})
+    except Exception as ex:
+        print(ex)
+        return JsonResponse({"error": "Student Not Found"})
