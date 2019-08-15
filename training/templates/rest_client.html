@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rest Client</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var URL = "/training/rest/students/";
+
+        function getStudent() {
+            $.ajax(
+                    {"url": URL + $("#id").val(),
+                     "type" : "get",
+                     "success" :
+                             function(student) {
+                                $("#info").text(student.fullname + " : " + student.course)
+                             },
+                     "error" : function() {
+                                 $("#info").text("Sorry! Student Not Found");
+                             }
+                    }
+                );
+        }
+
+         function deleteStudent() {
+            if (! confirm("Do you really want to delete student?") )
+                 return;
+
+            $.ajax(
+                   { "url": URL + $("#id").val(),
+                     "type" : "delete",
+                     "success" :
+                             function() {
+                                alert("Deleted Student Successfully")
+                             },
+                     "error" : function() {
+                                 alert("Sorry! Student Not Found");
+                             }
+                    }
+            );
+        }
+
+
+        function getStudents() {
+            // URL, data, callbackfunction
+            $.get(URL,null,showStudents);
+        }
+
+        function showStudents(students){
+             st = "";
+             for(var i = 0; i < students.length ; i ++)
+                 st += students[i].id + " - "  +  students[i].fullname + "<br/>";
+
+             $("#students").html(st);
+        }
+
+        function addStudent() {
+           var data = {
+                       "fullname" : $("#fullname").val(),
+                       "course" : $("#course").val(),
+                       "email" : $("#email").val(),
+                       "feepaid": $("#feepaid").val()
+                      };
+
+            $.ajax(
+                    {"url": URL,
+                     "data": data,
+                     "type" : "post",
+                     "success" : add_success,
+                     "error" : add_failure
+                    }
+                  );
+        }
+
+        function add_success(student) {
+           alert("Student with id [" + student.id + "] has been added successfully!");
+        }
+
+        function add_failure(errors) {
+           console.log(errors)
+           alert("Student was not added due to errors!");
+        }
+
+    </script>
+</head>
+<body>
+<h1>Students Client</h1>
+<h3>Add Student</h3>
+Fullname <br/>
+<input type="text" id="fullname"/>
+<p/>
+Course <br/>
+<input type="text" id="course"/>
+<p/>
+Email <br/> <input type="text" id="email"/>
+<p/>
+Fee Paid <br/> <input type="number" id="feepaid"/>
+<p/>
+<button onclick="addStudent()">Add Student</button>
+<hr/>
+
+<h3>Student Details</h3>
+Id : <input type="number" id="id"/>
+<button onclick="getStudent()">Get Details</button>
+<button onclick="deleteStudent()">Delete</button>
+
+<span id="info"></span>
+<hr/>
+
+<div id="students"></div>
+<p></p>
+<button onclick="getStudents()">Get All Students</button>
+
+</body>
+</html>

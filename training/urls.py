@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from . import views, dbviews,student_views
+from . import views, dbviews,student_views, rest_views
 
 
 urlpatterns = [
@@ -19,4 +19,8 @@ urlpatterns = [
     path('studentsearch/', student_views.search_students),
     path('ajaxdemo/', views.ajax_demo),
     path('ajaxnow/', views.ajax_now),
+    path('rest/students/', rest_views.students_get_post),
+    path('rest/students/<int:id>', rest_views.process_one_student),
+    path('rest/client/', rest_views.client),
+
 ]
